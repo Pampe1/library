@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<LibraryItem> library = new ArrayList<>();
+        Library library = new Library();
 
         LibraryItem book = new Book("1", "Book", "Bob", "Fiction");
         LibraryItem dvd = new DVD("2", "DVD", 48);
@@ -16,17 +16,25 @@ public class Main {
             System.out.println(output);
         }
 
-        library.add(book);
-        library.add(dvd);
-        library.add(magazine);
+        library.addItem(book);
+        library.addItem(dvd);
+        library.addItem(magazine);
 
-        int counter = library.size() - 1;
+       try {
+           library.checkout("3");
+           library.returnItem("999");
+        } catch (ItemNotFoundException | ItemNotAvailableException e) {
+           System.out.println("Error: " + e.getMessage());
+        }
 
-        for(LibraryItem l : library) {
-            String output_console = l.getDetails();
-            System.out.println(output_console);
+        int counter = library.getCatalog().size() - 1;
+
+        for(String l : library.getCatalog().keySet()) {
+            LibraryItem item = library.getCatalog().get(l);
+            String print_item = item.getDetails();
+            //System.out.println(print_item);
             if(counter > 0) {
-                System.out.println("=====================================");
+                //System.out.println("=====================================");
             }
             counter--;
         }
