@@ -1,42 +1,25 @@
+import java.io.*;
 import java.util.ArrayList;
+import com.google.gson.Gson;
+
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Library library = new Library();
 
-        LibraryItem book = new Book("1", "Book", "Bob", "Fiction");
-        LibraryItem dvd = new DVD("2", "DVD", 48);
-        LibraryItem magazine = new Magazine("3", "Magazine", 9);
+        library.addItem(new Book("1", "Book", "Bob", "Fiction"));
+        library.addItem(new DVD("2", "DVD", 48));
+        library.addItem(new Magazine("3", "Magazine", 9));
 
-        dvd.setAvailable(false);
+        library.saveToFile("data.txt");
 
-        if (book instanceof Loanable loanable) {
-            loanable.setNumberOfLoanDays(14);
-            int output = loanable.getLoanPeriodDays();
-            System.out.println(output);
-        }
+        Library newLibrary = new Library();
+        newLibrary.loadFromFile("data.txt");
 
-        library.addItem(book);
-        library.addItem(dvd);
-        library.addItem(magazine);
-
-       try {
-           library.checkout("3");
-           library.returnItem("999");
-        } catch (ItemNotFoundException | ItemNotAvailableException e) {
-           System.out.println("Error: " + e.getMessage());
-        }
-
-        int counter = library.getCatalog().size() - 1;
-
-        for(String l : library.getCatalog().keySet()) {
-            LibraryItem item = library.getCatalog().get(l);
-            String print_item = item.getDetails();
-            //System.out.println(print_item);
-            if(counter > 0) {
-                //System.out.println("=====================================");
-            }
-            counter--;
+        System.out.println("=== Loaded from file ===");
+        for (LibraryItem item : newLibrary.getCatalog().values()) {
+            System.out.println(item.getDetails());
         }
     }
 }

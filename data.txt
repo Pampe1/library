@@ -1,0 +1,1 @@
+{"books":[{"author":"Bob","genre":"Fiction","numberOfLoanDays":0,"id":"1","title":"Book","isAvailable":true}],"dvds":[{"durationMinutes":48,"numberOfLoanDays":0,"id":"2","title":"DVD","isAvailable":true}],"magazines":[{"issueNumber":9,"id":"3","title":"Magazine","isAvailable":true}]}
