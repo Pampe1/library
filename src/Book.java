@@ -1,4 +1,4 @@
-public class Book extends LibraryItem implements Loanable{
+public class Book extends LibraryItem implements Loanable, Comparable<Book> {
     private String author;
     private String genre;
     private int numberOfLoanDays = 0;
@@ -22,5 +22,9 @@ public class Book extends LibraryItem implements Loanable{
         if(period > 0) {
             numberOfLoanDays = period;
         }
+    }
+    @Override
+    public int compareTo(Book other) {
+        return this.getId().compareTo(other.getId());
     }
 }

@@ -1,1 +1,1 @@
-{"books":[],"dvds":[],"magazines":[{"issueNumber":2005,"id":"1","title":"Magazine","isAvailable":true}]}
+{"books":[{"author":"Anna","genre":"Horro","numberOfLoanDays":0,"id":"4","title":"KOOB","isAvailable":true}],"dvds":[],"magazines":[{"issueNumber":2005,"id":"1","title":"Magazine","isAvailable":true}]}

@@ -1,30 +1,17 @@
-import java.util.HashMap;
+import com.google.gson.Gson;
 
-public class Library {
-    private HashMap<String, LibraryItem> catalog = new HashMap<>();
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
-    public void addItem(LibraryItem item) {
-        catalog.put(item.getId(), item);
-    }
-
-    public HashMap<String, LibraryItem> getCatalog() {
-        return catalog;
-    }
-
-    public LibraryItem searchByTitle(String title) {
-        for (String c : catalog.keySet()) {
-            LibraryItem l_item = catalog.get(c);
-            if (l_item.getTitle().equalsIgnoreCase(title)) {
-                return l_item;
-            }
-        }
-        return null;
-    }
-
-    /* public void saveToFile(String filename) {
+public class GsonFileStorage implements Storage {
+    @Override
+    public void save (String filename, Library library) {
         LibraryData libraryData = new LibraryData();
-        for (String c : catalog.keySet()) {
-            LibraryItem item = catalog.get(c);
+        for (String c : library.getCatalog().keySet()) {
+            LibraryItem item = library.getCatalog().get(c);
             if (item instanceof Book book) {
                 libraryData.setNewBook(book);
             }
@@ -44,8 +31,8 @@ public class Library {
             System.out.println("Error saving: " + e.getMessage());
         }
     }
-
-    public void loadFromFile(String filename) throws FileNotFoundException {
+    @Override
+    public void load (String filename, Library library) throws FileNotFoundException {
         StringBuilder content = new StringBuilder();
 
         try (Scanner fileReader = new Scanner(new File(filename))) {
@@ -58,13 +45,13 @@ public class Library {
         LibraryData data = gson.fromJson(content.toString(), LibraryData.class);
 
         for (Book b : data.books) {
-            addItem(b);
+            library.addItem(b);
         }
         for (DVD d : data.dvds) {
-            addItem(d);
+            library.addItem(d);
         }
         for (Magazine m : data.magazines) {
-            addItem(m);
+            library.addItem(m);
         }
-    } */
+    }
 }
